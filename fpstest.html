@@ -202,18 +202,18 @@
             document.addEventListener('keydown', function(event) {
                 switch (event.code) {
                     case 'KeyW': moveForward = true; break;
-                    case 'KeyA': moveLeft = true; break;
+                    case 'KeyA': moveRight = true; break;
                     case 'KeyS': moveBackward = true; break;
-                    case 'KeyD': moveRight = true; break;
+                    case 'KeyD': moveLeft = true; break;
                 }
             });
             
             document.addEventListener('keyup', function(event) {
                 switch (event.code) {
                     case 'KeyW': moveForward = false; break;
-                    case 'KeyA': moveLeft = false; break;
+                    case 'KeyA': moveRight = false; break;
                     case 'KeyS': moveBackward = false; break;
-                    case 'KeyD': moveRight = false; break;
+                    case 'KeyD': moveLeft = false; break;
                 }
             });
             
@@ -234,7 +234,8 @@
                 yawObject.rotation.y -= movementX * 0.002;
                 
                 // Handle vertical rotation (pitch) separately
-                pitchObject.rotation.x += movementY * 0.002;
+                // Fixed: Changed sign to negative to correct inverted vertical movement
+                pitchObject.rotation.x -= movementY * 0.002;
                 
                 // Clamp the vertical rotation to prevent flipping
                 pitchObject.rotation.x = Math.max(-Math.PI/2, Math.min(Math.PI/2, pitchObject.rotation.x));
