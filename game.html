@@ -50,9 +50,13 @@
 
         function initializeGame() {
             scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xffffff); // Set scene background to white
+
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
             renderer = new THREE.WebGLRenderer();
             renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0xffffff, 1); // Set renderer clear color to white with full opacity
             document.body.appendChild(renderer.domElement);
 
             basket = new THREE.Mesh(
