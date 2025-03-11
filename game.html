@@ -48,6 +48,10 @@
     <div id="scoreDisplay">Score: 0</div>
     <script>
         let scene, camera, renderer, basket, fallingObjects, score, gameOver, keys;
+        const loader = new THREE.TextureLoader();
+        const redBallTexture = loader.load('https://yourdomain.com/images/police.png');
+        const greenBallTexture = loader.load('https://postimg.cc/9DnZ7S5H');
+        const basketTexture = loader.load('https://yourdomain.com/images/man.png');
 
         function initializeGame() {
             scene = new THREE.Scene();
@@ -60,10 +64,10 @@
             renderer.setClearColor(0xffffff, 1); // Set renderer clear color to white with full opacity
             document.body.appendChild(renderer.domElement);
 
-            basket = new THREE.Mesh(
-                new THREE.BoxGeometry(2, 0.5, 1),
-                new THREE.MeshBasicMaterial({ color: 0x0000ff })
-            );
+            // Create the basket (player)
+            const basketGeometry = new THREE.PlaneGeometry(2, 0.5);
+            const basketMaterial = new THREE.MeshBasicMaterial({ map: basketTexture, transparent: true });
+            basket = new THREE.Mesh(basketGeometry, basketMaterial);
             basket.position.y = -4;
             scene.add(basket);
 
@@ -93,11 +97,10 @@
 
         function createFallingObject() {
             let isGreen = Math.random() < 0.5; // 50% chance for green
-            let color = isGreen ? 0x00ff00 : 0xff0000;
-            let obj = new THREE.Mesh(
-                new THREE.SphereGeometry(0.5, 16, 16),
-                new THREE.MeshBasicMaterial({ color: color })
-            );
+            let texture = isGreen ? greenBallTexture : redBallTexture;
+            let geometry = new THREE.PlaneGeometry(1, 1);
+            let material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
+            let obj = new THREE.Mesh(geometry, material);
             obj.position.set((Math.random() - 0.5) * 10, 5, 0);
             obj.userData = { isGreen: isGreen }; // Store color information
             fallingObjects.push(obj);
@@ -147,12 +150,6 @@
 
         function endGame() {
             document.getElementById("finalScore").innerText = "Your score: " + score;
-            document.getElementById("gameOverScreen").style.display = "block";
-        }
-
-        function restartGame() {
-            location.reload();
-        }
-    </script>
-</body>
-</html>
+            document.get
+::contentReference[oaicite:0]{index=0}
+ 
