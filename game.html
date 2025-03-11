@@ -114,10 +114,16 @@
 
                 if (obj.position.y - 0.5 < -4.5) {
                     if (Math.abs(obj.position.x - basket.position.x) < 1) {
-                        score += obj.userData.isGreen ? 1 : -1;
+                        if (obj.userData.isGreen) {
+                            score++;
+                        }
+                        // Red balls do not affect the score or game over status
                     } else {
-                        gameOver = true;
-                        endGame();
+                        if (obj.userData.isGreen) {
+                            gameOver = true;
+                            endGame();
+                        }
+                        // Red balls falling past the basket do not affect the game
                     }
                     scene.remove(obj);
                     fallingObjects.splice(i, 1);
