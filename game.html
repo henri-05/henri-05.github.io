@@ -8,7 +8,7 @@
     <style>
         body {
             text-align: center;
-            background-color: #f0f8ff;
+            background-color: #ffffff;
             margin: 0;
             overflow: hidden;
         }
@@ -27,9 +27,10 @@
         }
         #scoreDisplay {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 18px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
             color: #000;
         }
     </style>
@@ -91,11 +92,14 @@
         }
 
         function createFallingObject() {
+            let isGreen = Math.random() < 0.5; // 50% chance for green
+            let color = isGreen ? 0x00ff00 : 0xff0000;
             let obj = new THREE.Mesh(
                 new THREE.SphereGeometry(0.5, 16, 16),
-                new THREE.MeshBasicMaterial({ color: 0xff0000 })
+                new THREE.MeshBasicMaterial({ color: color })
             );
             obj.position.set((Math.random() - 0.5) * 10, 5, 0);
+            obj.userData = { isGreen: isGreen }; // Store color information
             fallingObjects.push(obj);
             scene.add(obj);
         }
@@ -110,7 +114,7 @@
 
                 if (obj.position.y - 0.5 < -4.5) {
                     if (Math.abs(obj.position.x - basket.position.x) < 1) {
-                        score++;
+                        score += obj.userData.isGreen ? 1 : -1;
                     } else {
                         gameOver = true;
                         endGame();
