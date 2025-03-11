@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Falling Objects 3D</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body {
+            text-align: center;
+            background-color: #f0f8ff;
+            margin: 0;
+            overflow: hidden;
+        }
+        #menu, #gameOverScreen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <h1>Catch the Falling Objects 3D</h1>
+        <button onclick="startGame()">Start Game</button>
+    </div>
+    <div id="gameOverScreen" style="display: none;">
+        <h1>Game Over</h1>
+        <p id="finalScore"></p>
+        <button onclick="restartGame()">Restart</button>
+    </div>
+    <script>
+        let scene, camera, renderer, basket, fallingObjects, score, gameOver, keys;
+
+        function initializeGame() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            basket = new THREE.Mesh(
+                new THREE.BoxGeometry(2, 0.5, 1),
+                new THREE.MeshBasicMaterial({ color: 0x0000ff })
+            );
+            basket.position.y = -4;
+            scene.add(basket);
+
+            fallingObjects = [];
+            score = 0;
+            gameOver = false;
+            keys = {};
+            camera.position.z = 10;
+        }
+
+        document.addEventListener("keydown", (event) => {
+            keys[event.key] = true;
+        });
+        
+        document.addEventListener("keyup", (event) => {
+            keys[event.key] = false;
+        });
+
+        function moveBasket() {
+            if (keys["a"] && basket.position.x > -5) {
+                basket.position.x -= 0.2;
+            }
+            if (keys["d"] && basket.position.x < 5) {
+                basket.position.x += 0.2;
+            }
+        }
+
+        function createFallingObject() {
+            let obj = new THREE.Mesh(
+                new THREE.SphereGeometry(0.5, 16, 16),
+                new THREE.MeshBasicMaterial({ color: 0xff0000 })
+            );
+            obj.position.set((Math.random() - 0.5) * 10, 5, 0);
+            fallingObjects.push(obj);
+            scene.add(obj);
+        }
+
+        function updateGame() {
+            if (gameOver) return;
+            moveBasket();
+
+            for (let i = fallingObjects.length - 1; i >= 0; i--) {
+                let obj = fallingObjects[i];
+                obj.position.y -= 0.05;
+
+                if (obj.position.y - 0.5 < -4.5) {
+                    if (Math.abs(obj.position.x - basket.position.x) < 1) {
+                        score++;
+                    } else {
+                        gameOver = true;
+                        endGame();
+                    }
+                    scene.remove(obj);
+                    fallingObjects.splice(i, 1);
+                }
+            }
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(updateGame);
+        }
+
+        function startGame() {
+            document.getElementById("menu").style.display = "none";
+            document.getElementById("gameOverScreen").style.display = "none";
+            initializeGame();
+            setInterval(createFallingObject, 1000);
+            updateGame();
+        }
+
+        function endGame() {
+            document.getElementById("finalScore").innerText = "Your score: " + score;
+            document.getElementById("gameOverScreen").style.display = "block";
+        }
+
+        function restartGame() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
