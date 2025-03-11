@@ -25,6 +25,13 @@
             font-size: 16px;
             cursor: pointer;
         }
+        #scoreDisplay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 18px;
+            color: #000;
+        }
     </style>
 </head>
 <body>
@@ -37,6 +44,7 @@
         <p id="finalScore"></p>
         <button onclick="restartGame()">Restart</button>
     </div>
+    <div id="scoreDisplay">Score: 0</div>
     <script>
         let scene, camera, renderer, basket, fallingObjects, score, gameOver, keys;
 
@@ -107,6 +115,9 @@
                     fallingObjects.splice(i, 1);
                 }
             }
+
+            // Update the live score display
+            document.getElementById("scoreDisplay").innerText = "Score: " + score;
 
             renderer.render(scene, camera);
             requestAnimationFrame(updateGame);
