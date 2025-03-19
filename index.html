@@ -3,561 +3,902 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Launch | Web Design, SEO & Social Media Marketing</title>
+    <title>Link Launch | Website Design, SEO & SMM Agency</title>
     <style>
-        /* Global Styles */
+        /* Root variables for consistent theming */
         :root {
-            --primary: #2A2A2A;
-            --secondary: #4A90E2;
-            --light: #F5F5F5;
-            --text: #333333;
-            --accent: #F5A623;
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --accent: #e74c3c;
+            --text: #333;
+            --bg: #f9f9f9;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background-color: white;
+            background-color: var(--bg);
             color: var(--text);
-            line-height: 1.6;
+            overflow-x: hidden;
         }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
+
         /* Navigation */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-        }
-        
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 1.5rem 5%;
+            position: fixed;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
-        
+
+        nav.scrolled {
+            padding: 0.8rem 5%;
+        }
+
         .logo {
-            font-size: 24px;
+            font-size: 1.8rem;
             font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover span {
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .rocket-icon {
+            font-size: 1.5rem;
+            margin-right: 8px;
+            color: var(--accent);
+            display: inline-block;
+            transform: rotate(45deg);
+            transition: all 0.4s ease;
+        }
+
+        .logo:hover .rocket-icon {
+            transform: rotate(45deg) translateY(-8px);
             color: var(--primary);
         }
-        
-        .logo span {
-            color: var(--secondary);
-        }
-        
+
         .nav-links {
             display: flex;
-            list-style: none;
+            gap: 2rem;
         }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
+
         .nav-links a {
             text-decoration: none;
-            color: var(--primary);
+            color: var(--dark);
             font-weight: 500;
-            transition: color 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
         }
-        
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
         .nav-links a:hover {
-            color: var(--secondary);
+            color: var(--primary);
         }
-        
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
         .cta-button {
-            background-color: var(--secondary);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             color: white;
-            padding: 8px 20px;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
-        
+
         .cta-button:hover {
-            background-color: #3A80D2;
-            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
         }
-        
+
         /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
-            background-color: var(--light);
-            margin-top: 60px;
+            padding: 0 5%;
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.95), rgba(52, 152, 219, 0.9)), url("/api/placeholder/1920/1080") center/cover;
+            position: relative;
+            overflow: hidden;
         }
-        
+
         .hero-content {
             max-width: 600px;
+            z-index: 2;
         }
-        
+
         .hero h1 {
-            font-size: 48px;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
             line-height: 1.2;
-            margin-bottom: 20px;
-            color: var(--primary);
+            animation: fadeInUp 1s ease;
         }
-        
+
         .hero p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            animation: fadeInUp 1s ease 0.2s both;
         }
-        
+
         .hero-buttons {
             display: flex;
-            gap: 15px;
+            gap: 1rem;
+            animation: fadeInUp 1s ease 0.4s both;
         }
-        
+
         .secondary-button {
-            background-color: transparent;
-            color: var(--secondary);
-            padding: 8px 20px;
-            border-radius: 4px;
-            font-weight: 500;
-            border: 2px solid var(--secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .secondary-button:hover {
-            background-color: var(--secondary);
+            background: transparent;
             color: white;
+            border: 2px solid white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
-        
+
+        .secondary-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-duration: 35s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            left: 70%;
+            animation-duration: 45s;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            top: 40%;
+            left: 40%;
+            animation-duration: 25s;
+            animation-delay: 4s;
+        }
+
+        .shape:nth-child(4) {
+            width: 120px;
+            height: 120px;
+            top: 70%;
+            left: 20%;
+            animation-duration: 30s;
+            animation-delay: 6s;
+        }
+
         /* Services Section */
         .services {
-            padding: 100px 0;
-        }
-        
-        .section-header {
+            padding: 8rem 5%;
             text-align: center;
-            margin-bottom: 60px;
         }
-        
-        .section-header h2 {
-            font-size: 36px;
-            color: var(--primary);
-            margin-bottom: 15px;
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
         }
-        
-        .section-header p {
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 4rem;
             color: #666;
-            max-width: 600px;
-            margin: 0 auto;
         }
-        
+
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 2rem;
+            margin-top: 2rem;
         }
-        
+
         .service-card {
-            background-color: white;
-            border-radius: 8px;
+            background: white;
+            border-radius: 10px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
+        .service-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+        }
+
         .service-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
-        
+
+        .service-card:hover:before {
+            height: 100%;
+        }
+
         .service-icon {
-            background-color: var(--light);
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .service-icon i {
-            font-size: 48px;
-            color: var(--secondary);
-        }
-        
-        .service-content {
-            padding: 20px;
-        }
-        
-        .service-content h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
             color: var(--primary);
+            transition: all 0.3s ease;
         }
-        
-        .service-content p {
+
+        .service-card:hover .service-icon {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-description {
             color: #666;
-            margin-bottom: 20px;
+            line-height: 1.6;
         }
-        
+
+        /* Process Section */
+        .process {
+            padding: 8rem 5%;
+            background-color: var(--dark);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process .section-title {
+            color: white;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .process-steps:before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 1;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            max-width: 250px;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-number {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
         /* Portfolio Section */
         .portfolio {
-            padding: 100px 0;
-            background-color: var(--light);
+            padding: 8rem 5%;
+            text-align: center;
         }
-        
+
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
-        
+
         .portfolio-item {
             position: relative;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            aspect-ratio: 16/9;
+            height: 280px;
         }
-        
+
         .portfolio-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
+            transition: all 0.5s ease;
         }
-        
+
         .portfolio-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(74, 144, 226, 0.8);
+            background: linear-gradient(to bottom, rgba(52, 152, 219, 0.8), rgba(46, 204, 113, 0.8));
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: all 0.3s ease;
+            padding: 2rem;
         }
-        
+
         .portfolio-item:hover .portfolio-overlay {
             opacity: 1;
         }
-        
+
         .portfolio-item:hover .portfolio-image {
             transform: scale(1.1);
         }
-        
-        .portfolio-overlay h3 {
+
+        .portfolio-title {
             color: white;
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
         }
-        
-        .portfolio-overlay p {
-            color: white;
-            margin-bottom: 20px;
+
+        .portfolio-category {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            transform: translateY(20px);
+            transition: all 0.4s ease 0.1s;
         }
-        
+
+        .portfolio-item:hover .portfolio-title,
+        .portfolio-item:hover .portfolio-category {
+            transform: translateY(0);
+        }
+
         /* Testimonials Section */
         .testimonials {
-            padding: 100px 0;
+            padding: 8rem 5%;
+            background-color: #f5f9fc;
+            text-align: center;
         }
-        
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+
+        .testimonial-container {
+            max-width: 900px;
+            margin: 4rem auto 0;
+            position: relative;
         }
-        
-        .testimonial-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+
+        .testimonial {
+            background: white;
+            border-radius: 10px;
+            padding: 3rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin: 0 1rem;
+            text-align: left;
         }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            color: #666;
+
+        .testimonial-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            position: relative;
         }
-        
-        .testimonial-author {
+
+        .testimonial-content:before {
+            content: '"';
+            font-size: 5rem;
+            color: rgba(52, 152, 219, 0.1);
+            position: absolute;
+            top: -2.5rem;
+            left: -1rem;
+            font-family: Georgia, serif;
+        }
+
+        .client {
             display: flex;
             align-items: center;
         }
-        
-        .author-image {
-            width: 50px;
-            height: 50px;
+
+        .client-image {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            margin-right: 15px;
+            margin-right: 1rem;
+            object-fit: cover;
         }
-        
-        .author-details h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
-            color: var(--primary);
+
+        .client-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
         }
-        
-        .author-details p {
+
+        .client-info p {
             color: #666;
-            font-size: 14px;
+            font-size: 0.9rem;
         }
-        
-        /* CTA Section */
-        .cta {
-            padding: 80px 0;
-            background-color: var(--secondary);
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, var(--dark), var(--primary));
             color: white;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .cta h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
+
+        .contact-container {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            background: white;
+            border-radius: 10px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
         }
-        
-        .cta p {
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+
+        .contact-container h3 {
+            color: var(--dark);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
         }
-        
-        .cta-button-white {
-            background-color: white;
-            color: var(--secondary);
-            padding: 12px 30px;
-            border-radius: 4px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-            display: inline-block;
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            text-align: left;
         }
-        
-        .cta-button-white:hover {
-            background-color: var(--light);
+
+        .form-group {
+            margin-bottom: 1.5rem;
         }
-        
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            grid-column: 1 / -1;
+            justify-self: center;
+            margin-top: 1rem;
+            width: auto;
+            min-width: 150px;
+        }
+
         /* Footer */
         footer {
-            background-color: var(--primary);
+            background-color: var(--dark);
             color: white;
-            padding: 60px 0 30px;
+            padding: 4rem 5% 1rem;
         }
-        
-        .footer-grid {
+
+        .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
-        
-        .footer-column h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: white;
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
         }
-        
+
+        .footer-logo span {
+            color: var(--primary);
+        }
+
+        .footer-about p {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
         .footer-links {
             list-style: none;
         }
-        
+
         .footer-links li {
-            margin-bottom: 10px;
+            margin-bottom: 0.8rem;
         }
-        
+
         .footer-links a {
-            color: #CCC;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
-        
+
         .footer-links a:hover {
-            color: white;
+            color: var(--primary);
+            padding-left: 5px;
         }
-        
+
         .contact-info {
+            margin-bottom: 0.8rem;
             display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            color: #CCC;
+            align-items: flex-start;
         }
-        
+
         .contact-info i {
-            margin-right: 10px;
-            color: var(--secondary);
+            margin-right: 1rem;
+            color: var(--primary);
         }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-        
-        .social-icon:hover {
-            background-color: var(--secondary);
-        }
-        
+
         .copyright {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #999;
-            font-size: 14px;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
         }
-        
-        /* Responsive Styles */
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .process-steps {
+                flex-direction: column;
+                align-items: center;
+                gap: 3rem;
+            }
+            
+            .process-steps:before {
+                width: 2px;
+                height: 100%;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .step {
+                max-width: 100%;
+                width: 80%;
+            }
+        }
+
         @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%;
+            }
+            
             .nav-links {
                 display: none;
             }
             
             .hero h1 {
-                font-size: 36px;
+                font-size: 2.5rem;
             }
             
-            .hero p {
-                font-size: 16px;
+            .portfolio-grid {
+                grid-template-columns: 1fr;
             }
             
-            .section-header h2 {
-                font-size: 28px;
+            .contact-form {
+                grid-template-columns: 1fr;
             }
         }
     </style>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">Link<span>Launch</span></div>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#portfolio">Work</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#contact" class="cta-button">Contact Us</a></li>
-                </ul>
-            </nav>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <span class="rocket-icon">🚀</span>
+            Link<span>Launch</span>
         </div>
-    </header>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#process">Our Process</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#testimonials">Testimonials</a>
+        </div>
+        <a href="#contact" class="cta-button">Get Started</a>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1><span style="color: var(--secondary);">Launch</span> Your Digital Success Story</h1>
-                <p>We create stunning websites, optimize for search engines, and build powerful social media strategies to help your business thrive in the competitive online landscape.</p>
-                <div class="hero-buttons">
-                    <a href="#services" class="cta-button">Our Services</a>
-                    <a href="#portfolio" class="secondary-button">View Our Work</a>
-                </div>
+    <section class="hero">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Launching Your Digital Success Story</h1>
+            <p>We create stunning websites, optimize search visibility, and craft engaging social media strategies that drive real business growth.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="cta-button">Free Consultation</a>
+                <a href="#portfolio" class="secondary-button">See Our Work</a>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
     <section class="services" id="services">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Services</h2>
-                <p>We provide comprehensive digital solutions to help your business thrive online. From stunning designs to strategic marketing.</p>
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">We offer comprehensive digital solutions to help your business thrive online.</p>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3 class="service-title">Website Design</h3>
+                <p class="service-description">Beautiful, responsive websites that captivate your audience and drive conversions. We blend stunning aesthetics with powerful functionality.</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Web Design</h3>
-                        <p>We create beautiful, responsive websites that look great on any device and provide an exceptional user experience.</p>
-                        <a href="#" class="secondary-button">Learn More</a>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>SEO Optimization</h3>
-                        <p>Improve your online visibility and drive more traffic to your website with our proven SEO strategies.</p>
-                        <a href="#" class="secondary-button">Learn More</a>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-hashtag"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Social Media Marketing</h3>
-                        <p>Build a strong social media presence and connect with your audience through engaging content strategies.</p>
-                        <a href="#" class="secondary-button">Learn More</a>
-                    </div>
-                </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🔍</div>
+                <h3 class="service-title">SEO Optimization</h3>
+                <p class="service-description">Boost your visibility with our data-driven SEO strategies. We'll help you climb search rankings and attract high-quality organic traffic.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3 class="service-title">Social Media Marketing</h3>
+                <p class="service-description">Engage your audience with compelling content and strategic campaigns across all major platforms to build your brand presence.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <h2 class="section-title">Our Process</h2>
+        <p class="section-subtitle">We follow a systematic approach to ensure optimal results for every project.</p>
+        
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Discovery</h3>
+                <p class="step-description">We learn about your business, goals, and target audience to develop a tailored strategy.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Planning</h3>
+                <p class="step-description">We create a detailed roadmap, outlining project milestones and deliverables.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Execution</h3>
+                <p class="step-description">Our team brings your project to life with precision and creativity.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3 class="step-title">Review & Launch</h3>
+                <p class="step-description">We refine and perfect before launch, then provide ongoing support and optimization.</p>
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
     <section class="portfolio" id="portfolio">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Recent Work</h2>
-                <p>Take a look at some of our recent projects and see how we've helped businesses achieve their goals.</p>
+        <h2 class="section-title">Our Portfolio</h2>
+        <p class="section-subtitle">Take a look at some of our recent projects and success stories.</p>
+        
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img src="/api/placeholder/600/400" alt="Project 1" class="portfolio-image">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Harmony Spa</h3>
+                    <p class="portfolio-category">Website Design & SEO</p>
+                </div>
             </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <img src="/api/placeholder/400/320" alt="Project 1" class="portfolio-image">
-                    <div class="portfolio-overlay">
-                        <h3>E-commerce Redesign</h3>
-                        <p>Web Design, SEO</p>
-                        <a href="#" class="cta-button">View Project</a>
-                    </div>
+            
+            <div class="portfolio-item">
+                <img src="/api/placeholder/600/400" alt="Project 2" class="portfolio-image">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">TechNova</h3>
+                    <p class="portfolio-category">E-commerce & SMM</p>
                 </div>
-                <div class="portfolio-item">
-                    <img src="/api/placeholder/400/320" alt="Project 2" class="portfolio-image">
-                    <div class="portfolio-overlay">
-                        <h3>Restaurant Campaign</h3>
-                        <p>Social Media, Branding</p>
-                        <a href="#" class="cta-button">View Project</a>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="/api/placeholder/400/320" alt="Project 3" class="portfolio-image">
-                    <div class="portfolio-overlay">
-                        <h3>Fitness App</h3>
-                        <p>UX/UI, Development</p>
-                        <a href="#" class="cta-button">View Project</a>
-                    </div>
+            </div>
+            
+            <div class="portfolio-item">
+                <img src="/api/placeholder/600/400" alt="Project 3" class="portfolio-image">
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Fresh Eats</h3>
+                    <p class="portfolio-category">Branding & Website</p>
                 </div>
             </div>
         </div>
@@ -565,106 +906,89 @@
 
     <!-- Testimonials Section -->
     <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <h2>What Our Clients Say</h2>
-                <p>Don't just take our word for it. Hear from our satisfied clients about their experience working with us.</p>
-            </div>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "Link Launch completely transformed our online presence. Their team delivered a beautiful website and helped us rank higher in search results. Our traffic has increased by 150% since working with them!"
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="/api/placeholder/50/50" alt="Client" class="author-image">
-                        <div class="author-details">
-                            <h4>Sarah Johnson</h4>
-                            <p>CEO, Bright Ideas Co.</p>
-                        </div>
-                    </div>
+        <h2 class="section-title">Client Testimonials</h2>
+        <p class="section-subtitle">What our clients say about working with us.</p>
+        
+        <div class="testimonial-container">
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    Link Launch transformed our online presence completely. Our website traffic has increased by 200% and our conversion rate has doubled since we started working with them. Their team is not only talented but also incredibly responsive and easy to work with.
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "The social media strategy that Link Launch created for us has been game-changing. Our engagement rates have soared and we're connecting with customers in ways we never thought possible."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="/api/placeholder/50/50" alt="Client" class="author-image">
-                        <div class="author-details">
-                            <h4>Mark Williams</h4>
-                            <p>Marketing Director, Urban Trends</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "Professional, creative, and results-driven. Link Launch took the time to understand our business and created a digital strategy that aligned perfectly with our goals. Highly recommended!"
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="/api/placeholder/50/50" alt="Client" class="author-image">
-                        <div class="author-details">
-                            <h4>Jennifer Lee</h4>
-                            <p>Founder, Eco Solutions</p>
-                        </div>
+                <div class="client">
+                    <img src="/api/placeholder/100/100" alt="Client" class="client-image">
+                    <div class="client-info">
+                        <h4>Sarah Johnson</h4>
+                        <p>CEO, Harmony Spa</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta" id="contact">
-        <div class="container">
-            <h2>Ready to Launch Your Digital Presence?</h2>
-            <p>Contact us today to discuss your project and discover how we can help your business grow online.</p>
-            <a href="#" class="cta-button-white">Get in Touch</a>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Ready to launch your business to new heights? Let's talk!</p>
+        
+        <div class="contact-container">
+            <h3>Send Us a Message</h3>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Your Phone">
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Company Name">
+                </div>
+                <div class="form-group full-width">
+                    <textarea placeholder="Tell us about your project"></textarea>
+                </div>
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h3>Link Launch</h3>
-                    <p>We create stunning digital experiences that help businesses thrive in the online world.</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+        <div class="footer-content">
+            <div class="footer-about">
+                <a href="#" class="footer-logo">Link<span>Launch</span></a>
+                <p>We help businesses establish a strong online presence through exceptional website design, SEO strategies, and social media marketing.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">f</a>
+                    <a href="#" class="social-link">t</a>
+                    <a href="#" class="social-link">in</a>
+                    <a href="#" class="social-link">ig</a>
                 </div>
-                <div class="footer-column">
-                    <h3>Services</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Web Design</a></li>
-                        <li><a href="#">Web Development</a></li>
-                        <li><a href="#">SEO Optimization</a></li>
-                        <li><a href="#">Social Media Marketing</a></li>
-                        <li><a href="#">Content Strategy</a></li>
-                    </ul>
+            </div>
+            
+            <div class="footer-links-container">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#process">Our Process</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3 class="footer-title">Contact Us</h3>
+                <div class="contact-info">
+                    <i>📍</i>
+                    <p>123 Digital Avenue, Web City, 54321</p>
                 </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Portfolio</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
+                <div class="contact-info">
+                    <i>📞</i>
+                    <p>+1 (555) 123-4567</p>
                 </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <div class="contact-info">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>123 Design Street, Creative City</p>
-                    </div>
-                    <div class="contact-info">
-                        <i class="fas fa-phone"></i>
-                        <p>+1 (555) 123-4567</p>
-                    </div>
-                    <div class="contact-info">
+                <div class="contact-info">
                         <i class="fas fa-envelope"></i>
                         <p>info@linklaunch.com</p>
                     </div>
